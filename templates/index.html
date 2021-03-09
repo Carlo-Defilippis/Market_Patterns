@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        body {
+            font-family: arial;
+            margin: 20px;
+        }
+
+        td {
+            padding: 5px;
+        }
+
+        .bullish {
+            background: green;
+            color: white;
+        }
+
+        .bearish {
+            background: red;
+            color: white;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Stock Pattern Recognition." />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Stock Pattern Recognition</title>
+</head>
+
+<body>
+    <div class="jumbotron">
+        <a class="btn btn-primary btn-lg ml-3" href="../../index.html" role="button">Main Page</a>
+        <h1 class="display-4 text-center">Stock Pattern Recognition</h1>
+        <p class="lead text-center">Using a combination of JavaScript and Python we can detect patterns in the NYSE market.  We use modules such as yfinance, flask, 
+        bootstrap(for styling), TA-LIB(for analyzing), finviz(for charts visualization). This was made with the help of user <a href="https://github.com/hackingthemarkets" target="_blank">hackingfthemarkets'</a> GitHub
+        and much research on pattern recognition tactics.
+        </p>
+        <p class="text-center">Day 19 of "100 days of coding".</p>
+        <hr class="my-4">
+        <p></p>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-sm">
+            </div>
+            <div class="col-sm-10">
+
+                <h1 class="text-center">Pattern Detector</h1>
+                <h5 class="text-center">** THIS IS NOT FINANCIAL ADVISE **</h5>
+                <p class="text-center text-wrap">Nothing in the Site constitutes professional and/or financial advice, nor does any information on the Site constitute a 
+                    comprehensive or complete statement of the matters discussed or the law relating thereto.</p>
+                <form class="mx-auto" style="width: 500px;">
+                    <select name="pattern">
+                        <option value="">-- Select a Pattern To Detect --</option>
+                        {% for key in candlestick_patterns %}
+                        <option value="{{ key }}" {% if pattern==key %}selected="selected" {% endif %}>{{ candlestick_patterns[key]
+                            }}</option>
+                        {% endfor %}
+                    </select>
+            
+                    <input class="search" type="submit" value="Scan" />
+                </form>
+                <br>
+                <h1 class='message text-center text-danger text-wrap' value='{{ foundStocks }}'>Sorry, no stocks found with that pattern.</h1>
+                <br>
+                <table class="mx-auto">
+                    <tr>
+                        <th>:Symbol: </th>
+                        <th>:Company: </th>
+                        <th>:Signal: </th>
+                    </tr>
+                    {% for stock in stocks %}
+                    {% if stocks[stock][pattern] %}
+                    <tr>
+                        <td>
+                            {{ stock }}
+                        </td>
+                        <td>
+                            {{ stocks[stock]['company'] }}
+                        </td>
+                        <td class="{{ stocks[stock][pattern] }}">
+                            {{ stocks[stock][pattern]}}
+                        </td>
+                    <tr>
+                        <td colspan="3">
+                            <img class="img-fluid" src="https://finviz.com/chart.ashx?t={{ stock }}&ty=c&ta=1&p=d&s=l" />
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+
+            </div>
+            <div class="col col-sm">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = '/index.js') }}"></script>
+</body>
+
+</html>
