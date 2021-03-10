@@ -69,11 +69,11 @@
                 <br>
                 <h1 class='message text-center text-danger text-wrap' value='{{ foundStocks }}'>Sorry, no stocks found with that pattern.</h1>
                 <br>
-                <table class="mx-auto results">
+                <table class="mx-auto">
                     <tr>
-                        <th>:Symbol: </th>
-                        <th>:Company: </th>
-                        <th>:Signal: </th>
+                        <th class="results1">:Symbol: </th>
+                        <th class="results2">:Company: </th>
+                        <th class="results3">:Signal: </th>
                     </tr>
                     {% for stock in stocks %}
                     {% if stocks[stock][pattern] %}
