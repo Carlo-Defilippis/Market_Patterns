@@ -56,7 +56,7 @@
                 <p class="text-center text-wrap">Nothing in the Site constitutes professional and/or financial advice, nor does any information on the Site constitute a 
                     comprehensive or complete statement of the matters discussed or the law relating thereto.</p>
                 <form class="mx-auto" style="width: 500px;">
-                    <select name="pattern selectpicker">
+                    <select name="pattern">
                         <option value="">-- Select a Pattern To Detect --</option>
                         {% for key in candlestick_patterns %}
                         <option value="{{ key }}" {% if pattern==key %}selected="selected" {% endif %}>{{ candlestick_patterns[key]
