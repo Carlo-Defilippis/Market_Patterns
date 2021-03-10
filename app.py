@@ -7,8 +7,6 @@ from patterns import candlestick_patterns
 
 app = Flask(__name__, static_url_path='/')
 
-PORT = process.env.PORT
-
 # @app.route('/data')
 # def get_data():
 #     df = pandas.read_csv('datasets/daily/{}'.format(filename))
@@ -75,4 +73,4 @@ def index():
     return render_template('index.html', candlestick_patterns=candlestick_patterns, stocks=stocks, pattern=pattern, foundStocks=foundStocks)
 
 if __name__ == '__main__':
-    app.run(threaded=True, port=PORT)
+    app.run()
